@@ -2,6 +2,14 @@
 
 > Замените эту строку одним предложением: что это за проект и для кого.
 
+## Команда
+
+| GitHub-ник | Роль |
+| --- | --- |
+| [@kittyne86-cloud](https://github.com/kittyne86-cloud) | менеджер |
+| [@koaladenchik-hue](https://github.com/koaladenchik-hue) | автор процесса |
+| [@Ahmedich](https://github.com/Ahmedich) | интегратор |
+
 - [Проблема и для кого](01-problem.md)
 - [Что делает проект](02-product.md)
 - [Дорожная карта](03-roadmap.md)
