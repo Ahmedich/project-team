@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Смета — расчёт коммерческого предложения</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen overflow-x-hidden bg-stone-100 font-['Trebuchet_MS'] text-stone-900 antialiased">
+  <div class="min-h-screen bg-[linear-gradient(to_right,rgba(28,25,23,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(28,25,23,0.035)_1px,transparent_1px)] bg-[size:32px_32px]">
+    <header class="border-b border-stone-300 bg-[#f7f4ec]/95">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
+        <div class="flex items-center gap-3">
+          <div class="grid h-10 w-10 place-items-center rounded-xl bg-emerald-900 text-lg font-bold text-emerald-50">С</div>
+          <div>
+            <p class="font-['Georgia'] text-xl font-bold tracking-tight">Смета</p>
+            <p class="text-xs uppercase tracking-[0.18em] text-stone-500">Коммерческое предложение</p>
+          </div>
+        </div>
+        <div class="hidden items-center gap-2 rounded-full border border-stone-300 bg-white px-3 py-1.5 text-xs text-stone-600 sm:flex">
+          <span class="h-2 w-2 rounded-full bg-emerald-600"></span>
+          <span id="saveStatus">Черновик готов</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto grid max-w-7xl gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:py-12">
+      <aside class="lg:sticky lg:top-8 lg:self-start">
+        <p class="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-emerald-800">Путь расчёта</p>
+        <h1 class="font-['Georgia'] text-3xl font-bold leading-tight sm:text-4xl">Один документ вместо долгого сбора данных</h1>
+        <p class="mt-4 text-sm leading-6 text-stone-600">Заполните параметры проекта и получите сокращённый Excel-документ без лишней информации.</p>
+
+        <ol class="mt-8 grid grid-cols-2 gap-3 text-sm lg:grid-cols-1">
+          <li class="flex items-center gap-3 rounded-xl border border-emerald-800 bg-emerald-900 px-3 py-3 text-white">
+            <span class="font-['Georgia'] text-lg">01</span><span>Клиент</span>
+          </li>
+          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
+            <span class="font-['Georgia'] text-lg text-stone-400">02</span><span>Скидка</span>
+          </li>
+          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
+            <span class="font-['Georgia'] text-lg text-stone-400">03</span><span>Налог</span>
+          </li>
+          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
+            <span class="font-['Georgia'] text-lg text-stone-400">04</span><span>Услуги</span>
+          </li>
+          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
+            <span class="font-['Georgia'] text-lg text-stone-400">05</span><span>Валюта</span>
+          </li>
+          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
+            <span class="font-['Georgia'] text-lg text-stone-400">06</span><span>Документ</span>
+          </li>
+        </ol>
+      </aside>
+
+      <section class="min-w-0 max-w-full overflow-hidden rounded-3xl border border-stone-300 bg-[#fffdf8] shadow-[0_24px_70px_rgba(41,37,36,0.12)]">
+        <div class="flex flex-col gap-4 border-b border-stone-200 px-6 py-6 sm:flex-row sm:items-end sm:justify-between sm:px-9">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">Новый расчёт</p>
+            <h2 class="mt-2 font-['Georgia'] text-2xl font-bold sm:text-3xl">Параметры проекта</h2>
+          </div>
+          <p class="text-sm text-stone-500"><span class="text-amber-700">*</span> обязательные поля</p>
+        </div>
+
+        <form id="proposalForm" class="space-y-8 px-6 py-8 sm:px-9">
+          <div class="grid gap-6 md:grid-cols-2">
+            <label class="block md:col-span-2">
+              <span class="mb-2 block text-sm font-bold">Клиент <span class="text-amber-700">*</span></span>
+              <input id="client" name="client" type="text" required autocomplete="organization" placeholder="Введите название клиента" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+            </label>
+
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold">Скидка, %</span>
+              <input id="discount" name="discount" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="Если есть" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+              <span class="mt-2 block text-xs text-stone-500">Поле можно оставить пустым.</span>
+            </label>
+
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold">Тип налога <span class="text-amber-700">*</span></span>
+              <input id="tax" name="tax" type="text" required placeholder="Укажите тип налога" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+            </label>
+
+            <label class="block md:col-span-2">
+              <span class="mb-2 block text-sm font-bold">Дополнительные услуги или тип поддержки</span>
+              <input id="services" name="services" type="text" placeholder="Укажите выбранные позиции" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+            </label>
+
+            <label class="block md:col-span-2">
+              <span class="mb-2 block text-sm font-bold">Валюта <span class="text-amber-700">*</span></span>
+              <input id="currency" name="currency" type="text" required placeholder="Укажите валюту расчёта" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+            </label>
+          </div>
+
+          <div class="flex flex-col gap-3 border-t border-stone-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <button type="button" id="clearDraft" class="order-2 rounded-xl px-4 py-3 text-sm font-bold text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 sm:order-1">Очистить черновик</button>
+            <button type="submit" class="order-1 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-900 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-200 sm:order-2">
+              Сформировать документ
+              <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+            </button>
+          </div>
+        </form>
+
+        <div id="resultPanel" class="hidden border-t border-emerald-200 bg-emerald-50/80 px-6 py-8 sm:px-9" aria-live="polite">
+          <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+            <div class="flex gap-4">
+              <div class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-emerald-800 text-white">
+                <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 10 4 4 8-9"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-800">Документ готов</p>
+                <h3 class="mt-1 font-['Georgia'] text-2xl font-bold">Сокращённый расчёт</h3>
+                <p class="mt-2 max-w-xl text-sm leading-6 text-stone-600">В документ включены только данные текущего расчёта.</p>
+              </div>
+            </div>
+            <button id="downloadResult" type="button" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-emerald-800 bg-white px-5 py-3 text-sm font-bold text-emerald-900 transition hover:bg-emerald-900 hover:text-white">
+              Скачать Excel
+              <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3v10m0 0 4-4m-4 4L6 9M4 16h12"/></svg>
+            </button>
+          </div>
+
+          <div class="mt-6 overflow-hidden rounded-2xl border border-emerald-200 bg-white">
+            <table class="w-full text-left text-sm">
+              <tbody id="resultTable" class="divide-y divide-stone-200"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const form = document.getElementById('proposalForm');
+    const resultPanel = document.getElementById('resultPanel');
+    const resultTable = document.getElementById('resultTable');
+    const saveStatus = document.getElementById('saveStatus');
+    const fieldNames = ['client', 'discount', 'tax', 'services', 'currency'];
+    const storageKey = 'proposal-draft';
+    let currentResult = null;
+
+    function getFormData() {
+      return Object.fromEntries(fieldNames.map((name) => [name, document.getElementById(name).value.trim()]));
+    }
+
+    function saveDraft() {
+      localStorage.setItem(storageKey, JSON.stringify(getFormData()));
+      saveStatus.textContent = 'Черновик сохранён';
+    }
+
+    function restoreDraft() {
+      const draft = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      fieldNames.forEach((name) => {
+        if (draft[name]) document.getElementById(name).value = draft[name];
+      });
+    }
+
+    function renderResult(data) {
+      const rows = [
+        ['Клиент', data.client],
+        ['Скидка', data.discount ? `${data.discount}%` : 'Не указана'],
+        ['Тип налога', data.tax],
+        ['Дополнительные услуги или поддержка', data.services || 'Не выбраны'],
+        ['Валюта', data.currency]
+      ];
+
+      resultTable.replaceChildren(...rows.map(([label, value]) => {
+        const row = document.createElement('tr');
+        const labelCell = document.createElement('th');
+        const valueCell = document.createElement('td');
+        labelCell.className = 'w-2/5 bg-stone-50 px-4 py-3 font-bold text-stone-600 sm:px-5';
+        valueCell.className = 'px-4 py-3 font-bold text-stone-900 sm:px-5';
+        labelCell.textContent = label;
+        valueCell.textContent = value;
+        row.append(labelCell, valueCell);
+        return row;
+      }));
+
+      currentResult = rows;
+      resultPanel.classList.remove('hidden');
+      resultPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    form.addEventListener('input', saveDraft);
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = getFormData();
+      saveDraft();
+      renderResult(data);
+    });
+
+    document.getElementById('clearDraft').addEventListener('click', () => {
+      form.reset();
+      localStorage.removeItem(storageKey);
+      resultPanel.classList.add('hidden');
+      currentResult = null;
+      saveStatus.textContent = 'Черновик очищен';
+      document.getElementById('client').focus();
+    });
+
+    document.getElementById('downloadResult').addEventListener('click', () => {
+      if (!currentResult) return;
+      const tableRows = currentResult.map(([label, value]) => `<tr><th>${escapeHtml(label)}</th><td>${escapeHtml(value)}</td></tr>`).join('');
+      const workbook = `<!doctype html><html><head><meta charset="UTF-8"></head><body><table>${tableRows}</table></body></html>`;
+      const blob = new Blob([workbook], { type: 'application/vnd.ms-excel;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'sokrashchennyi-raschet.xls';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, (character) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+      })[character]);
+    }
+
+    restoreDraft();
+  </script>
+</body>
+</html>
