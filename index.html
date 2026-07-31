@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>Расчёт коммерческого предложения</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-[#f5f5f7] font-['Inter'] text-[#1d1d1f] antialiased [font-variant-numeric:tabular-nums]">
+  <header class="border-b border-[#e8e8ed] bg-white">
+    <div class="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <div class="flex min-w-0 items-center gap-3">
+        <div class="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#1d1d1f] text-white" aria-hidden="true">
+          <i data-lucide="sheet" class="size-5"></i>
+        </div>
+        <div class="min-w-0">
+          <p class="truncate text-sm font-semibold">Расчёт КП</p>
+          <p class="truncate text-xs text-[#707070]">Рабочее пространство аккаунт-менеджера</p>
+        </div>
+      </div>
+      <div class="hidden items-center gap-2 text-sm text-[#707070] sm:flex">
+        <span class="inline-flex size-2 rounded-full bg-[#1d1d1f]"></span>
+        Черновик сохраняется автоматически
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="editor-view">
+      <div class="border-b border-[#e8e8ed] bg-white">
+        <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-medium uppercase text-[#0066cc]">
+              <span>Новый расчёт</span>
+              <span class="text-[#d6d6d6]">/</span>
+              <span class="text-[#707070]">Черновик</span>
+            </div>
+            <h1 class="mt-1 text-3xl font-semibold">Коммерческое предложение</h1>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <input id="workbook-input" class="sr-only" type="file" accept=".xlsx,.xls">
+            <label for="workbook-input" class="inline-flex h-10 cursor-pointer items-center gap-2 rounded-full border border-[#d6d6d6] bg-white px-4 text-sm font-medium text-[#474747] hover:bg-[#e8e8ed]" title="Открыть другой прайс-лист">
+              <i data-lucide="folder-open" class="size-4"></i>
+              Открыть файл
+            </label>
+            <div class="inline-flex h-10 min-w-0 items-center gap-2 rounded-full bg-[#f5f5f7] px-4 text-sm text-[#474747]">
+              <i data-lucide="file-spreadsheet" class="size-4 shrink-0"></i>
+              <span id="workbook-name" class="max-w-48 truncate">Прайс-лист_2026.xlsx</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_23rem] lg:px-8">
+        <form id="quote-form" class="min-w-0 overflow-hidden rounded-[28px] bg-white" novalidate>
+          <div id="form-error" class="hidden border-b border-[#b64400]/20 bg-[#fff3e8] px-5 py-3 text-sm text-[#b64400]" role="alert"></div>
+
+          <section class="bg-white p-5 sm:p-7">
+            <div class="mb-4 flex items-start gap-3">
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#e8e8ed] text-xs font-semibold text-[#474747]">1</span>
+              <div>
+                <h2 class="text-lg font-semibold">Клиент</h2>
+                <p class="mt-0.5 text-sm text-[#707070]">Получатель коммерческого предложения</p>
+              </div>
+            </div>
+            <label for="client" class="mb-1.5 block text-sm font-medium">Организация</label>
+            <select id="client" name="client" class="h-12 w-full rounded-xl border border-transparent bg-[#f5f5f7] px-4 text-[15px] outline-none focus:border-[#0066cc] focus:ring-2 focus:ring-[#0066cc]/10">
+              <option value="">Выберите клиента</option>
+              <option value="ООО Альфа">ООО «Альфа»</option>
+              <option value="АО Север">АО «Север»</option>
+              <option value="ГК Маяк">ГК «Маяк»</option>
+            </select>
+          </section>
+
+          <section class="bg-[#fafafc] p-5 sm:p-7">
+            <div class="mb-4 flex items-start gap-3">
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#e8e8ed] text-xs font-semibold text-[#474747]">2</span>
+              <div>
+                <h2 class="text-lg font-semibold">Модули</h2>
+                <p class="mt-0.5 text-sm text-[#707070]">В итоговый файл попадут только отмеченные позиции</p>
+              </div>
+            </div>
+            <div id="modules-list" class="divide-y divide-white overflow-hidden rounded-2xl bg-[#f5f5f7]"></div>
+          </section>
+
+          <section class="bg-white p-5 sm:p-7">
+            <div class="mb-4 flex items-start gap-3">
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#e8e8ed] text-xs font-semibold text-[#474747]">3</span>
+              <div>
+                <h2 class="text-lg font-semibold">Условия</h2>
+                <p class="mt-0.5 text-sm text-[#707070]">Скидка и тип налогообложения</p>
+              </div>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="discount" class="mb-1.5 block text-sm font-medium">Скидка</label>
+                <div class="relative">
+                  <input id="discount" name="discount" type="number" min="0" max="50" step="1" value="0" class="h-12 w-full rounded-xl border border-transparent bg-[#f5f5f7] px-4 pr-10 text-[15px] outline-none focus:border-[#0066cc] focus:ring-2 focus:ring-[#0066cc]/10">
+                  <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-[#707070]">%</span>
+                </div>
+              </div>
+              <div>
+                <label for="tax" class="mb-1.5 block text-sm font-medium">Тип налога</label>
+                <select id="tax" name="tax" class="h-12 w-full rounded-xl border border-transparent bg-[#f5f5f7] px-4 text-[15px] outline-none focus:border-[#0066cc] focus:ring-2 focus:ring-[#0066cc]/10">
+                  <option value="0.2">НДС 20%</option>
+                  <option value="0.1">НДС 10%</option>
+                  <option value="0">Без НДС</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <section class="bg-[#fafafc] p-5 sm:p-7">
+            <div class="mb-4 flex items-start gap-3">
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#e8e8ed] text-xs font-semibold text-[#474747]">4</span>
+              <div>
+                <h2 class="text-lg font-semibold">Сервисы и поддержка</h2>
+                <p class="mt-0.5 text-sm text-[#707070]">Дополнительные позиции для проекта</p>
+              </div>
+            </div>
+            <div id="services-list" class="grid gap-3 sm:grid-cols-2"></div>
+            <div class="mt-4">
+              <label for="support" class="mb-1.5 block text-sm font-medium">Пакет поддержки</label>
+              <select id="support" name="support" class="h-12 w-full rounded-xl border border-transparent bg-white px-4 text-[15px] outline-none focus:border-[#0066cc] focus:ring-2 focus:ring-[#0066cc]/10">
+                <option value="base">Базовый — включён</option>
+                <option value="standard">Стандарт — 90 000 ₽</option>
+                <option value="priority">Приоритет — 180 000 ₽</option>
+              </select>
+            </div>
+          </section>
+
+          <section class="bg-white p-5 sm:p-7">
+            <div class="mb-4 flex items-start gap-3">
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#e8e8ed] text-xs font-semibold text-[#474747]">5</span>
+              <div>
+                <h2 class="text-lg font-semibold">Валюта</h2>
+                <p class="mt-0.5 text-sm text-[#707070]">Валюта итогового документа</p>
+              </div>
+            </div>
+            <div id="currency-control" class="grid grid-cols-3 rounded-full bg-[#e8e8ed] p-1" role="group" aria-label="Валюта">
+              <button type="button" data-currency="RUB" class="currency-button h-10 rounded-full text-sm font-medium">RUB</button>
+              <button type="button" data-currency="USD" class="currency-button h-10 rounded-full text-sm font-medium">USD</button>
+              <button type="button" data-currency="EUR" class="currency-button h-10 rounded-full text-sm font-medium">EUR</button>
+            </div>
+          </section>
+        </form>
+
+        <aside class="h-fit overflow-hidden rounded-[28px] bg-white lg:sticky lg:top-6">
+          <div class="border-b border-[#e8e8ed] px-5 py-4">
+            <div class="flex items-center justify-between gap-3">
+              <h2 class="font-semibold">Итого</h2>
+              <span id="selected-count" class="rounded-full bg-[#f5f5f7] px-2.5 py-1 text-xs font-medium text-[#707070]">0 позиций</span>
+            </div>
+          </div>
+          <div id="summary-lines" class="max-h-64 divide-y divide-[#e8e8ed] overflow-auto px-5"></div>
+          <div class="space-y-2 border-t border-[#e8e8ed] bg-[#f5f5f7] px-5 py-4 text-sm">
+            <div class="flex justify-between gap-4 text-[#707070]">
+              <span>Подытог</span>
+              <span id="subtotal-value" class="font-medium text-[#1d1d1f]">0 ₽</span>
+            </div>
+            <div class="flex justify-between gap-4 text-[#707070]">
+              <span>Скидка</span>
+              <span id="discount-value" class="font-medium text-[#1d1d1f]">− 0 ₽</span>
+            </div>
+            <div class="flex justify-between gap-4 text-[#707070]">
+              <span id="tax-label">НДС 20%</span>
+              <span id="tax-value" class="font-medium text-[#1d1d1f]">0 ₽</span>
+            </div>
+            <div class="flex items-end justify-between gap-4 border-t border-[#e8e8ed] pt-3">
+              <span class="font-semibold">К оплате</span>
+              <span id="total-value" class="text-xl font-semibold">0 ₽</span>
+            </div>
+          </div>
+          <div class="p-4">
+            <button type="submit" form="quote-form" class="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[#0071e3] px-5 text-sm font-semibold text-white hover:bg-[#0077ed] focus:outline-none focus:ring-2 focus:ring-[#0066cc]/20 focus:ring-offset-2">
+              <i data-lucide="file-check-2" class="size-4"></i>
+              Сформировать документ
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="result-view" class="hidden">
+      <div class="bg-white">
+        <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+          <div class="flex items-start gap-3">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#1d1d1f] text-white">
+              <i data-lucide="check" class="size-5"></i>
+            </span>
+            <div>
+              <p class="text-sm font-medium text-[#474747]">Документ создан</p>
+              <h1 class="mt-0.5 text-2xl font-semibold">Расчёт готов к скачиванию</h1>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button id="edit-button" type="button" class="inline-flex h-10 items-center gap-2 rounded-full border border-[#d6d6d6] bg-white px-4 text-sm font-medium text-[#474747] hover:bg-[#e8e8ed]">
+              <i data-lucide="arrow-left" class="size-4"></i>
+              Изменить
+            </button>
+            <button id="download-button" type="button" class="inline-flex h-10 items-center gap-2 rounded-full bg-[#0071e3] px-5 text-sm font-semibold text-white hover:bg-[#0077ed]">
+              <i data-lucide="download" class="size-4"></i>
+              Скачать .xlsx
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+        <div class="overflow-hidden rounded-[28px] bg-white">
+          <div class="grid gap-4 border-b border-[#e8e8ed] bg-[#f5f5f7] px-5 py-4 text-sm sm:grid-cols-3">
+            <div>
+              <p class="text-xs text-[#707070]">Клиент</p>
+              <p id="result-client" class="mt-1 font-medium"></p>
+            </div>
+            <div>
+              <p class="text-xs text-[#707070]">Источник</p>
+              <p id="result-workbook" class="mt-1 truncate font-medium"></p>
+            </div>
+            <div>
+              <p class="text-xs text-[#707070]">Состав</p>
+              <p id="result-count" class="mt-1 font-medium"></p>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[42rem] text-left text-sm">
+              <thead class="border-b border-[#e8e8ed] text-xs uppercase text-[#707070]">
+                <tr>
+                  <th class="px-5 py-3 font-medium">Позиция</th>
+                  <th class="px-5 py-3 font-medium">Тип</th>
+                  <th class="px-5 py-3 text-right font-medium">Стоимость</th>
+                </tr>
+              </thead>
+              <tbody id="result-lines" class="divide-y divide-[#e8e8ed]"></tbody>
+            </table>
+          </div>
+
+          <div class="flex justify-end border-t border-[#e8e8ed] bg-[#f5f5f7] px-5 py-5">
+            <dl class="w-full max-w-sm space-y-2 text-sm">
+              <div class="flex justify-between gap-4 text-[#707070]">
+                <dt>Подытог</dt>
+                <dd id="result-subtotal" class="font-medium text-[#1d1d1f]"></dd>
+              </div>
+              <div class="flex justify-between gap-4 text-[#707070]">
+                <dt id="result-discount-label">Скидка</dt>
+                <dd id="result-discount" class="font-medium text-[#1d1d1f]"></dd>
+              </div>
+              <div class="flex justify-between gap-4 text-[#707070]">
+                <dt id="result-tax-label">Налог</dt>
+                <dd id="result-tax" class="font-medium text-[#1d1d1f]"></dd>
+              </div>
+              <div class="flex items-end justify-between gap-4 border-t border-[#d6d6d6] pt-3">
+                <dt class="font-semibold">Итого</dt>
+                <dd id="result-total" class="text-2xl font-semibold"></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center gap-2 text-sm text-[#707070]">
+          <i data-lucide="shield-check" class="size-4 text-[#707070]"></i>
+          В файл включены только выбранные модули, сервисы и итоговый расчёт.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script>
+    const modules = [
+      { id: 'platform', name: 'Базовая платформа', note: 'Лицензия на 12 месяцев', price: 520000 },
+      { id: 'analytics', name: 'Модуль аналитики', note: 'Отчёты и дашборды', price: 285000 },
+      { id: 'integration', name: 'Интеграционный модуль', note: 'Обмен данными с учётной системой', price: 190000 },
+      { id: 'mobile', name: 'Мобильный кабинет', note: 'Доступ для сотрудников', price: 240000 }
+    ];
+
+    const services = [
+      { id: 'setup', name: 'Настройка решения', price: 120000 },
+      { id: 'training', name: 'Обучение команды', price: 75000 }
+    ];
+
+    const supportOptions = {
+      base: { name: 'Базовая поддержка', price: 0 },
+      standard: { name: 'Поддержка Стандарт', price: 90000 },
+      priority: { name: 'Поддержка Приоритет', price: 180000 }
+    };
+
+    const currencyRates = { RUB: 1, USD: 0.011, EUR: 0.01 };
+    const storageKey = 'quote-prototype-v1';
+    let state = {
+      workbook: 'Прайс-лист_2026.xlsx',
+      client: '',
+      modules: ['platform'],
+      discount: 0,
+      tax: 0.2,
+      services: [],
+      support: 'base',
+      currency: 'RUB'
+    };
+    let latestCalculation = null;
+
+    const savedState = localStorage.getItem(storageKey);
+    if (savedState) {
+      try {
+        state = { ...state, ...JSON.parse(savedState) };
+      } catch (error) {
+        localStorage.removeItem(storageKey);
+      }
+    }
+
+    function formatMoney(value, currency = state.currency) {
+      return new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency,
+        maximumFractionDigits: currency === 'RUB' ? 0 : 2
+      }).format(value * currencyRates[currency]);
+    }
+
+    function renderOptions() {
+      const modulesList = document.getElementById('modules-list');
+      modulesList.innerHTML = modules.map((module) => `
+        <label class="flex cursor-pointer items-center gap-3 px-4 py-3 hover:bg-[#e8e8ed]">
+          <input type="checkbox" name="module" value="${module.id}" class="size-4 rounded border-[#d6d6d6] [accent-color:#0071e3] focus:ring-[#0066cc]" ${state.modules.includes(module.id) ? 'checked' : ''}>
+          <span class="min-w-0 flex-1">
+            <span class="block text-sm font-medium">${module.name}</span>
+            <span class="block text-xs text-[#707070]">${module.note}</span>
+          </span>
+          <span class="shrink-0 text-sm font-medium">${formatMoney(module.price, 'RUB')}</span>
+        </label>
+      `).join('');
+
+      const servicesList = document.getElementById('services-list');
+      servicesList.innerHTML = services.map((service) => `
+        <label class="flex cursor-pointer items-center gap-3 rounded-2xl bg-white p-3 hover:bg-[#e8e8ed]">
+          <input type="checkbox" name="service" value="${service.id}" class="size-4 rounded border-[#d6d6d6] [accent-color:#0071e3] focus:ring-[#0066cc]" ${state.services.includes(service.id) ? 'checked' : ''}>
+          <span class="min-w-0 flex-1 text-sm font-medium">${service.name}</span>
+          <span class="shrink-0 text-xs text-[#707070]">${formatMoney(service.price, 'RUB')}</span>
+        </label>
+      `).join('');
+    }
+
+    function calculate() {
+      const selectedModules = modules.filter((module) => state.modules.includes(module.id));
+      const selectedServices = services.filter((service) => state.services.includes(service.id));
+      const support = supportOptions[state.support];
+      const lines = [
+        ...selectedModules.map((item) => ({ ...item, type: 'Модуль' })),
+        ...selectedServices.map((item) => ({ ...item, type: 'Сервис' }))
+      ];
+      if (support.price > 0) lines.push({ ...support, id: state.support, type: 'Поддержка' });
+
+      const subtotal = lines.reduce((sum, item) => sum + item.price, 0);
+      const discountAmount = subtotal * (Number(state.discount) / 100);
+      const afterDiscount = subtotal - discountAmount;
+      const taxAmount = afterDiscount * Number(state.tax);
+      const total = afterDiscount + taxAmount;
+      return { lines, subtotal, discountAmount, taxAmount, total };
+    }
+
+    function taxName() {
+      if (Number(state.tax) === 0) return 'Без НДС';
+      return `НДС ${Math.round(Number(state.tax) * 100)}%`;
+    }
+
+    function saveAndUpdate() {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+      updateCurrencyButtons();
+      updateSummary();
+    }
+
+    function updateCurrencyButtons() {
+      document.querySelectorAll('.currency-button').forEach((button) => {
+        const isActive = button.dataset.currency === state.currency;
+        button.className = `currency-button h-10 rounded-full text-sm font-medium ${isActive ? 'bg-white text-[#1d1d1f]' : 'text-[#707070] hover:text-[#1d1d1f]'}`;
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+    }
+
+    function updateSummary() {
+      const calculation = calculate();
+      const summaryLines = document.getElementById('summary-lines');
+      summaryLines.innerHTML = calculation.lines.length
+        ? calculation.lines.map((line) => `
+            <div class="flex items-start justify-between gap-3 py-3 text-sm">
+              <span class="min-w-0 text-[#707070]">${line.name}</span>
+              <span class="shrink-0 font-medium">${formatMoney(line.price)}</span>
+            </div>
+          `).join('')
+        : '<p class="py-6 text-center text-sm text-[#707070]">Позиции не выбраны</p>';
+
+      document.getElementById('selected-count').textContent = `${calculation.lines.length} поз.`;
+      document.getElementById('subtotal-value').textContent = formatMoney(calculation.subtotal);
+      document.getElementById('discount-value').textContent = `− ${formatMoney(calculation.discountAmount)}`;
+      document.getElementById('tax-label').textContent = taxName();
+      document.getElementById('tax-value').textContent = formatMoney(calculation.taxAmount);
+      document.getElementById('total-value').textContent = formatMoney(calculation.total);
+    }
+
+    function syncStateFromForm() {
+      state.client = document.getElementById('client').value;
+      state.modules = [...document.querySelectorAll('input[name="module"]:checked')].map((input) => input.value);
+      state.discount = Math.min(50, Math.max(0, Number(document.getElementById('discount').value) || 0));
+      state.tax = Number(document.getElementById('tax').value);
+      state.services = [...document.querySelectorAll('input[name="service"]:checked')].map((input) => input.value);
+      state.support = document.getElementById('support').value;
+      saveAndUpdate();
+    }
+
+    function showError(message) {
+      const error = document.getElementById('form-error');
+      error.textContent = message;
+      error.classList.remove('hidden');
+      error.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function clearError() {
+      document.getElementById('form-error').classList.add('hidden');
+    }
+
+    function renderResult() {
+      latestCalculation = calculate();
+      document.getElementById('result-client').textContent = state.client;
+      document.getElementById('result-workbook').textContent = state.workbook;
+      document.getElementById('result-count').textContent = `${latestCalculation.lines.length} позиций`;
+      document.getElementById('result-lines').innerHTML = latestCalculation.lines.map((line) => `
+        <tr>
+          <td class="px-5 py-4 font-medium">${line.name}</td>
+          <td class="px-5 py-4 text-[#707070]">${line.type}</td>
+          <td class="px-5 py-4 text-right font-medium">${formatMoney(line.price)}</td>
+        </tr>
+      `).join('');
+      document.getElementById('result-subtotal').textContent = formatMoney(latestCalculation.subtotal);
+      document.getElementById('result-discount-label').textContent = `Скидка ${state.discount}%`;
+      document.getElementById('result-discount').textContent = `− ${formatMoney(latestCalculation.discountAmount)}`;
+      document.getElementById('result-tax-label').textContent = taxName();
+      document.getElementById('result-tax').textContent = formatMoney(latestCalculation.taxAmount);
+      document.getElementById('result-total').textContent = formatMoney(latestCalculation.total);
+      document.getElementById('editor-view').classList.add('hidden');
+      document.getElementById('result-view').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function downloadWorkbook() {
+      if (!latestCalculation || typeof XLSX === 'undefined') {
+        window.alert('Не удалось подготовить файл. Обновите страницу и попробуйте снова.');
+        return;
+      }
+
+      const rows = [
+        ['КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ'],
+        ['Клиент', state.client],
+        ['Источник', state.workbook],
+        ['Валюта', state.currency],
+        [],
+        ['Позиция', 'Тип', 'Стоимость'],
+        ...latestCalculation.lines.map((line) => [line.name, line.type, line.price * currencyRates[state.currency]]),
+        [],
+        ['Подытог', '', latestCalculation.subtotal * currencyRates[state.currency]],
+        [`Скидка ${state.discount}%`, '', -latestCalculation.discountAmount * currencyRates[state.currency]],
+        [taxName(), '', latestCalculation.taxAmount * currencyRates[state.currency]],
+        ['Итого', '', latestCalculation.total * currencyRates[state.currency]]
+      ];
+
+      const sheet = XLSX.utils.aoa_to_sheet(rows);
+      sheet['!cols'] = [{ wch: 34 }, { wch: 20 }, { wch: 18 }];
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, sheet, 'Расчёт');
+      const safeClient = state.client.replace(/[^a-zа-яё0-9]+/gi, '_');
+      XLSX.writeFile(workbook, `Расчёт_${safeClient}.${state.currency}.xlsx`);
+    }
+
+    document.getElementById('client').value = state.client;
+    document.getElementById('discount').value = state.discount;
+    document.getElementById('tax').value = String(state.tax);
+    document.getElementById('support').value = state.support;
+    document.getElementById('workbook-name').textContent = state.workbook;
+    renderOptions();
+    updateCurrencyButtons();
+    updateSummary();
+
+    document.getElementById('quote-form').addEventListener('change', syncStateFromForm);
+    document.getElementById('discount').addEventListener('input', syncStateFromForm);
+    document.getElementById('quote-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      syncStateFromForm();
+      clearError();
+      if (!state.client) {
+        showError('Выберите клиента, чтобы сформировать документ.');
+        document.getElementById('client').focus();
+        return;
+      }
+      if (state.modules.length === 0) {
+        showError('Выберите хотя бы один модуль для расчёта.');
+        return;
+      }
+      renderResult();
+    });
+
+    document.querySelectorAll('.currency-button').forEach((button) => {
+      button.addEventListener('click', () => {
+        state.currency = button.dataset.currency;
+        saveAndUpdate();
+      });
+    });
+
+    document.getElementById('workbook-input').addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      state.workbook = file.name;
+      document.getElementById('workbook-name').textContent = state.workbook;
+      saveAndUpdate();
+    });
+
+    document.getElementById('edit-button').addEventListener('click', () => {
+      document.getElementById('result-view').classList.add('hidden');
+      document.getElementById('editor-view').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.getElementById('download-button').addEventListener('click', downloadWorkbook);
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
