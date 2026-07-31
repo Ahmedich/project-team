@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
   <title>Расчёт коммерческого предложения</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-zinc-100 text-zinc-900 antialiased">
-  <header class="border-b border-zinc-200 bg-white">
-    <div class="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+<body class="min-h-screen bg-[#08090a] font-['Inter'] text-[#e5e5e6] antialiased [color-scheme:dark]">
+  <header class="border-b border-[#23252a] bg-[#08090a]">
+    <div class="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
       <div class="flex min-w-0 items-center gap-3">
-        <div class="flex size-9 shrink-0 items-center justify-center rounded-md bg-emerald-700 text-white" aria-hidden="true">
+        <div class="flex size-9 shrink-0 items-center justify-center rounded-md bg-[#e5e5e6] text-[#08090a]" aria-hidden="true">
           <i data-lucide="sheet" class="size-5"></i>
         </div>
         <div class="min-w-0">
           <p class="truncate text-sm font-semibold">Расчёт КП</p>
-          <p class="truncate text-xs text-zinc-500">Рабочее пространство аккаунт-менеджера</p>
+          <p class="truncate text-xs text-[#8a8f98]">Рабочее пространство аккаунт-менеджера</p>
         </div>
       </div>
-      <div class="hidden items-center gap-2 text-sm text-zinc-600 sm:flex">
-        <span class="inline-flex size-2 rounded-full bg-emerald-500"></span>
+      <div class="hidden items-center gap-2 text-sm text-[#8a8f98] sm:flex">
+        <span class="inline-flex size-2 rounded-full bg-[#27a644]"></span>
         Черновик сохраняется автоматически
       </div>
     </div>
@@ -27,44 +31,44 @@
 
   <main>
     <section id="editor-view">
-      <div class="border-b border-zinc-200 bg-white">
-        <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div class="border-b border-[#23252a] bg-[#0f1011]">
+        <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <div>
-            <div class="flex items-center gap-2 text-xs font-medium uppercase text-emerald-700">
+            <div class="flex items-center gap-2 text-xs font-medium uppercase text-[#d0d6e0]">
               <span>Новый расчёт</span>
-              <span class="text-zinc-300">/</span>
-              <span class="text-zinc-500">Черновик</span>
+              <span class="text-[#383b3f]">/</span>
+              <span class="text-[#8a8f98]">Черновик</span>
             </div>
             <h1 class="mt-1 text-2xl font-semibold">Коммерческое предложение</h1>
           </div>
           <div class="flex flex-wrap items-center gap-2">
             <input id="workbook-input" class="sr-only" type="file" accept=".xlsx,.xls">
-            <label for="workbook-input" class="inline-flex h-10 cursor-pointer items-center gap-2 rounded-md border border-zinc-300 bg-white px-3 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50" title="Открыть другой прайс-лист">
+            <label for="workbook-input" class="inline-flex h-10 cursor-pointer items-center gap-2 rounded-md border border-[#383b3f] bg-[#0f1011] px-3 text-sm font-medium text-[#d0d6e0] hover:bg-[#161718]" title="Открыть другой прайс-лист">
               <i data-lucide="folder-open" class="size-4"></i>
               Открыть файл
             </label>
-            <div class="inline-flex h-10 min-w-0 items-center gap-2 rounded-md bg-emerald-50 px-3 text-sm text-emerald-800">
+            <div class="inline-flex h-10 min-w-0 items-center gap-2 rounded-md bg-[#161718] px-3 text-sm text-[#d0d6e0]">
               <i data-lucide="file-spreadsheet" class="size-4 shrink-0"></i>
-              <span id="workbook-name" class="max-w-48 truncate">Прайс-лист_2026.xlsx</span>
+              <span id="workbook-name" class="max-w-48 truncate font-mono text-xs">Прайс-лист_2026.xlsx</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_23rem] lg:px-8">
-        <form id="quote-form" class="min-w-0 overflow-hidden rounded-md border border-zinc-200 bg-white shadow-sm" novalidate>
-          <div id="form-error" class="hidden border-b border-red-200 bg-red-50 px-5 py-3 text-sm text-red-800" role="alert"></div>
+      <div class="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_23rem] lg:px-8">
+        <form id="quote-form" class="min-w-0 overflow-hidden rounded-md border border-[#23252a] bg-[#0f1011]" novalidate>
+          <div id="form-error" class="hidden border-b border-[#eb5757]/50 bg-[#eb5757]/10 px-5 py-3 text-sm text-[#ff9a9a]" role="alert"></div>
 
-          <section class="border-b border-zinc-200 p-5 sm:p-6">
+          <section class="border-b border-[#23252a] p-5 sm:p-6">
             <div class="mb-4 flex items-start gap-3">
-              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white">1</span>
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#23252a] text-xs font-semibold text-white">1</span>
               <div>
                 <h2 class="text-base font-semibold">Клиент</h2>
-                <p class="mt-0.5 text-sm text-zinc-500">Получатель коммерческого предложения</p>
+                <p class="mt-0.5 text-sm text-[#8a8f98]">Получатель коммерческого предложения</p>
               </div>
             </div>
             <label for="client" class="mb-1.5 block text-sm font-medium">Организация</label>
-            <select id="client" name="client" class="h-11 w-full rounded-md border border-zinc-300 bg-white px-3 text-sm outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100">
+            <select id="client" name="client" class="h-11 w-full rounded-md border border-[#383b3f] bg-[#161718] px-3 text-sm outline-none focus:border-[#e4f222] focus:ring-2 focus:ring-[#e4f222]/10">
               <option value="">Выберите клиента</option>
               <option value="ООО Альфа">ООО «Альфа»</option>
               <option value="АО Север">АО «Север»</option>
@@ -72,36 +76,36 @@
             </select>
           </section>
 
-          <section class="border-b border-zinc-200 p-5 sm:p-6">
+          <section class="border-b border-[#23252a] p-5 sm:p-6">
             <div class="mb-4 flex items-start gap-3">
-              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white">2</span>
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#23252a] text-xs font-semibold text-white">2</span>
               <div>
                 <h2 class="text-base font-semibold">Модули</h2>
-                <p class="mt-0.5 text-sm text-zinc-500">В итоговый файл попадут только отмеченные позиции</p>
+                <p class="mt-0.5 text-sm text-[#8a8f98]">В итоговый файл попадут только отмеченные позиции</p>
               </div>
             </div>
-            <div id="modules-list" class="divide-y divide-zinc-100 rounded-md border border-zinc-200"></div>
+            <div id="modules-list" class="divide-y divide-[#23252a] rounded-md border border-[#23252a]"></div>
           </section>
 
-          <section class="border-b border-zinc-200 p-5 sm:p-6">
+          <section class="border-b border-[#23252a] p-5 sm:p-6">
             <div class="mb-4 flex items-start gap-3">
-              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white">3</span>
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#23252a] text-xs font-semibold text-white">3</span>
               <div>
                 <h2 class="text-base font-semibold">Условия</h2>
-                <p class="mt-0.5 text-sm text-zinc-500">Скидка и тип налогообложения</p>
+                <p class="mt-0.5 text-sm text-[#8a8f98]">Скидка и тип налогообложения</p>
               </div>
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
               <div>
                 <label for="discount" class="mb-1.5 block text-sm font-medium">Скидка</label>
                 <div class="relative">
-                  <input id="discount" name="discount" type="number" min="0" max="50" step="1" value="0" class="h-11 w-full rounded-md border border-zinc-300 bg-white px-3 pr-10 text-sm outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100">
-                  <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-zinc-500">%</span>
+                  <input id="discount" name="discount" type="number" min="0" max="50" step="1" value="0" class="h-11 w-full rounded-md border border-[#383b3f] bg-[#161718] px-3 pr-10 text-sm outline-none focus:border-[#e4f222] focus:ring-2 focus:ring-[#e4f222]/10">
+                  <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-[#8a8f98]">%</span>
                 </div>
               </div>
               <div>
                 <label for="tax" class="mb-1.5 block text-sm font-medium">Тип налога</label>
-                <select id="tax" name="tax" class="h-11 w-full rounded-md border border-zinc-300 bg-white px-3 text-sm outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100">
+                <select id="tax" name="tax" class="h-11 w-full rounded-md border border-[#383b3f] bg-[#161718] px-3 text-sm outline-none focus:border-[#e4f222] focus:ring-2 focus:ring-[#e4f222]/10">
                   <option value="0.2">НДС 20%</option>
                   <option value="0.1">НДС 10%</option>
                   <option value="0">Без НДС</option>
@@ -110,18 +114,18 @@
             </div>
           </section>
 
-          <section class="border-b border-zinc-200 p-5 sm:p-6">
+          <section class="border-b border-[#23252a] p-5 sm:p-6">
             <div class="mb-4 flex items-start gap-3">
-              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white">4</span>
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#23252a] text-xs font-semibold text-white">4</span>
               <div>
                 <h2 class="text-base font-semibold">Сервисы и поддержка</h2>
-                <p class="mt-0.5 text-sm text-zinc-500">Дополнительные позиции для проекта</p>
+                <p class="mt-0.5 text-sm text-[#8a8f98]">Дополнительные позиции для проекта</p>
               </div>
             </div>
             <div id="services-list" class="grid gap-3 sm:grid-cols-2"></div>
             <div class="mt-4">
               <label for="support" class="mb-1.5 block text-sm font-medium">Пакет поддержки</label>
-              <select id="support" name="support" class="h-11 w-full rounded-md border border-zinc-300 bg-white px-3 text-sm outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100">
+              <select id="support" name="support" class="h-11 w-full rounded-md border border-[#383b3f] bg-[#161718] px-3 text-sm outline-none focus:border-[#e4f222] focus:ring-2 focus:ring-[#e4f222]/10">
                 <option value="base">Базовый — включён</option>
                 <option value="standard">Стандарт — 90 000 ₽</option>
                 <option value="priority">Приоритет — 180 000 ₽</option>
@@ -131,13 +135,13 @@
 
           <section class="p-5 sm:p-6">
             <div class="mb-4 flex items-start gap-3">
-              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold text-white">5</span>
+              <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#23252a] text-xs font-semibold text-white">5</span>
               <div>
                 <h2 class="text-base font-semibold">Валюта</h2>
-                <p class="mt-0.5 text-sm text-zinc-500">Валюта итогового документа</p>
+                <p class="mt-0.5 text-sm text-[#8a8f98]">Валюта итогового документа</p>
               </div>
             </div>
-            <div id="currency-control" class="grid grid-cols-3 rounded-md border border-zinc-300 bg-zinc-100 p-1" role="group" aria-label="Валюта">
+            <div id="currency-control" class="grid grid-cols-3 rounded-md border border-[#383b3f] bg-[#161718] p-1" role="group" aria-label="Валюта">
               <button type="button" data-currency="RUB" class="currency-button h-9 rounded text-sm font-medium">RUB</button>
               <button type="button" data-currency="USD" class="currency-button h-9 rounded text-sm font-medium">USD</button>
               <button type="button" data-currency="EUR" class="currency-button h-9 rounded text-sm font-medium">EUR</button>
@@ -145,34 +149,34 @@
           </section>
         </form>
 
-        <aside class="h-fit overflow-hidden rounded-md border border-zinc-200 bg-white shadow-sm lg:sticky lg:top-6">
-          <div class="border-b border-zinc-200 px-5 py-4">
+        <aside class="h-fit overflow-hidden rounded-md border border-[#23252a] bg-[#0f1011] lg:sticky lg:top-6">
+          <div class="border-b border-[#23252a] px-5 py-4">
             <div class="flex items-center justify-between gap-3">
               <h2 class="font-semibold">Итого</h2>
-              <span id="selected-count" class="rounded bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-600">0 позиций</span>
+              <span id="selected-count" class="rounded bg-[#161718] px-2 py-1 text-xs font-medium text-[#8a8f98]">0 позиций</span>
             </div>
           </div>
-          <div id="summary-lines" class="max-h-64 divide-y divide-zinc-100 overflow-auto px-5"></div>
-          <div class="space-y-2 border-t border-zinc-200 bg-zinc-50 px-5 py-4 text-sm">
-            <div class="flex justify-between gap-4 text-zinc-600">
+          <div id="summary-lines" class="max-h-64 divide-y divide-[#23252a] overflow-auto px-5"></div>
+          <div class="space-y-2 border-t border-[#23252a] bg-[#161718] px-5 py-4 text-sm">
+            <div class="flex justify-between gap-4 text-[#8a8f98]">
               <span>Подытог</span>
-              <span id="subtotal-value" class="font-medium text-zinc-900">0 ₽</span>
+              <span id="subtotal-value" class="font-medium text-[#e5e5e6]">0 ₽</span>
             </div>
-            <div class="flex justify-between gap-4 text-zinc-600">
+            <div class="flex justify-between gap-4 text-[#8a8f98]">
               <span>Скидка</span>
-              <span id="discount-value" class="font-medium text-zinc-900">− 0 ₽</span>
+              <span id="discount-value" class="font-medium text-[#e5e5e6]">− 0 ₽</span>
             </div>
-            <div class="flex justify-between gap-4 text-zinc-600">
+            <div class="flex justify-between gap-4 text-[#8a8f98]">
               <span id="tax-label">НДС 20%</span>
-              <span id="tax-value" class="font-medium text-zinc-900">0 ₽</span>
+              <span id="tax-value" class="font-medium text-[#e5e5e6]">0 ₽</span>
             </div>
-            <div class="flex items-end justify-between gap-4 border-t border-zinc-200 pt-3">
+            <div class="flex items-end justify-between gap-4 border-t border-[#23252a] pt-3">
               <span class="font-semibold">К оплате</span>
               <span id="total-value" class="text-xl font-semibold">0 ₽</span>
             </div>
           </div>
           <div class="p-4">
-            <button type="submit" form="quote-form" class="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-emerald-700 px-4 text-sm font-semibold text-white shadow-sm hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2">
+            <button type="submit" form="quote-form" class="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#e4f222] px-4 text-sm font-semibold text-[#08090a] hover:bg-[#f0fa64] focus:outline-none focus:ring-2 focus:ring-[#e4f222]/30 focus:ring-offset-2 focus:ring-offset-[#0f1011]">
               <i data-lucide="file-check-2" class="size-4"></i>
               Сформировать документ
             </button>
@@ -182,23 +186,23 @@
     </section>
 
     <section id="result-view" class="hidden">
-      <div class="border-b border-emerald-200 bg-emerald-50">
-        <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+      <div class="border-b border-[#27a644]/50 bg-[#161718]">
+        <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
           <div class="flex items-start gap-3">
-            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-white">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#27a644] text-white">
               <i data-lucide="check" class="size-5"></i>
             </span>
             <div>
-              <p class="text-sm font-medium text-emerald-800">Документ создан</p>
+              <p class="text-sm font-medium text-[#d0d6e0]">Документ создан</p>
               <h1 class="mt-0.5 text-2xl font-semibold">Расчёт готов к скачиванию</h1>
             </div>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button id="edit-button" type="button" class="inline-flex h-10 items-center gap-2 rounded-md border border-zinc-300 bg-white px-3 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50">
+            <button id="edit-button" type="button" class="inline-flex h-10 items-center gap-2 rounded-md border border-[#383b3f] bg-[#0f1011] px-3 text-sm font-medium text-[#d0d6e0] hover:bg-[#161718]">
               <i data-lucide="arrow-left" class="size-4"></i>
               Изменить
             </button>
-            <button id="download-button" type="button" class="inline-flex h-10 items-center gap-2 rounded-md bg-emerald-700 px-4 text-sm font-semibold text-white shadow-sm hover:bg-emerald-800">
+            <button id="download-button" type="button" class="inline-flex h-10 items-center gap-2 rounded-md bg-[#e4f222] px-4 text-sm font-semibold text-[#08090a] hover:bg-[#f0fa64]">
               <i data-lucide="download" class="size-4"></i>
               Скачать .xlsx
             </button>
@@ -206,51 +210,51 @@
         </div>
       </div>
 
-      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <div class="overflow-hidden rounded-md border border-zinc-200 bg-white shadow-sm">
-          <div class="grid gap-4 border-b border-zinc-200 bg-zinc-50 px-5 py-4 text-sm sm:grid-cols-3">
+      <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+        <div class="overflow-hidden rounded-md border border-[#23252a] bg-[#0f1011]">
+          <div class="grid gap-4 border-b border-[#23252a] bg-[#161718] px-5 py-4 text-sm sm:grid-cols-3">
             <div>
-              <p class="text-xs text-zinc-500">Клиент</p>
+              <p class="text-xs text-[#8a8f98]">Клиент</p>
               <p id="result-client" class="mt-1 font-medium"></p>
             </div>
             <div>
-              <p class="text-xs text-zinc-500">Источник</p>
+              <p class="text-xs text-[#8a8f98]">Источник</p>
               <p id="result-workbook" class="mt-1 truncate font-medium"></p>
             </div>
             <div>
-              <p class="text-xs text-zinc-500">Состав</p>
+              <p class="text-xs text-[#8a8f98]">Состав</p>
               <p id="result-count" class="mt-1 font-medium"></p>
             </div>
           </div>
 
           <div class="overflow-x-auto">
             <table class="w-full min-w-[42rem] text-left text-sm">
-              <thead class="border-b border-zinc-200 text-xs uppercase text-zinc-500">
+              <thead class="border-b border-[#23252a] text-xs uppercase text-[#8a8f98]">
                 <tr>
                   <th class="px-5 py-3 font-medium">Позиция</th>
                   <th class="px-5 py-3 font-medium">Тип</th>
                   <th class="px-5 py-3 text-right font-medium">Стоимость</th>
                 </tr>
               </thead>
-              <tbody id="result-lines" class="divide-y divide-zinc-100"></tbody>
+              <tbody id="result-lines" class="divide-y divide-[#23252a]"></tbody>
             </table>
           </div>
 
-          <div class="flex justify-end border-t border-zinc-200 bg-zinc-50 px-5 py-5">
+          <div class="flex justify-end border-t border-[#23252a] bg-[#161718] px-5 py-5">
             <dl class="w-full max-w-sm space-y-2 text-sm">
-              <div class="flex justify-between gap-4 text-zinc-600">
+              <div class="flex justify-between gap-4 text-[#8a8f98]">
                 <dt>Подытог</dt>
-                <dd id="result-subtotal" class="font-medium text-zinc-900"></dd>
+                <dd id="result-subtotal" class="font-medium text-[#e5e5e6]"></dd>
               </div>
-              <div class="flex justify-between gap-4 text-zinc-600">
+              <div class="flex justify-between gap-4 text-[#8a8f98]">
                 <dt id="result-discount-label">Скидка</dt>
-                <dd id="result-discount" class="font-medium text-zinc-900"></dd>
+                <dd id="result-discount" class="font-medium text-[#e5e5e6]"></dd>
               </div>
-              <div class="flex justify-between gap-4 text-zinc-600">
+              <div class="flex justify-between gap-4 text-[#8a8f98]">
                 <dt id="result-tax-label">Налог</dt>
-                <dd id="result-tax" class="font-medium text-zinc-900"></dd>
+                <dd id="result-tax" class="font-medium text-[#e5e5e6]"></dd>
               </div>
-              <div class="flex items-end justify-between gap-4 border-t border-zinc-300 pt-3">
+              <div class="flex items-end justify-between gap-4 border-t border-[#383b3f] pt-3">
                 <dt class="font-semibold">Итого</dt>
                 <dd id="result-total" class="text-2xl font-semibold"></dd>
               </div>
@@ -258,8 +262,8 @@
           </div>
         </div>
 
-        <div class="mt-4 flex items-center gap-2 text-sm text-zinc-500">
-          <i data-lucide="shield-check" class="size-4 text-emerald-700"></i>
+        <div class="mt-4 flex items-center gap-2 text-sm text-[#8a8f98]">
+          <i data-lucide="shield-check" class="size-4 text-[#27a644]"></i>
           В файл включены только выбранные модули, сервисы и итоговый расчёт.
         </div>
       </div>
@@ -321,11 +325,11 @@
     function renderOptions() {
       const modulesList = document.getElementById('modules-list');
       modulesList.innerHTML = modules.map((module) => `
-        <label class="flex cursor-pointer items-center gap-3 px-4 py-3 hover:bg-zinc-50">
-          <input type="checkbox" name="module" value="${module.id}" class="size-4 rounded border-zinc-300 text-emerald-700 focus:ring-emerald-600" ${state.modules.includes(module.id) ? 'checked' : ''}>
+        <label class="flex cursor-pointer items-center gap-3 px-4 py-3 hover:bg-[#161718]">
+          <input type="checkbox" name="module" value="${module.id}" class="size-4 rounded border-[#383b3f] [accent-color:#e4f222] focus:ring-[#e4f222]" ${state.modules.includes(module.id) ? 'checked' : ''}>
           <span class="min-w-0 flex-1">
             <span class="block text-sm font-medium">${module.name}</span>
-            <span class="block text-xs text-zinc-500">${module.note}</span>
+            <span class="block text-xs text-[#8a8f98]">${module.note}</span>
           </span>
           <span class="shrink-0 text-sm font-medium">${formatMoney(module.price, 'RUB')}</span>
         </label>
@@ -333,10 +337,10 @@
 
       const servicesList = document.getElementById('services-list');
       servicesList.innerHTML = services.map((service) => `
-        <label class="flex cursor-pointer items-center gap-3 rounded-md border border-zinc-200 p-3 hover:bg-zinc-50">
-          <input type="checkbox" name="service" value="${service.id}" class="size-4 rounded border-zinc-300 text-emerald-700 focus:ring-emerald-600" ${state.services.includes(service.id) ? 'checked' : ''}>
+        <label class="flex cursor-pointer items-center gap-3 rounded-md border border-[#23252a] p-3 hover:bg-[#161718]">
+          <input type="checkbox" name="service" value="${service.id}" class="size-4 rounded border-[#383b3f] [accent-color:#e4f222] focus:ring-[#e4f222]" ${state.services.includes(service.id) ? 'checked' : ''}>
           <span class="min-w-0 flex-1 text-sm font-medium">${service.name}</span>
-          <span class="shrink-0 text-xs text-zinc-500">${formatMoney(service.price, 'RUB')}</span>
+          <span class="shrink-0 text-xs text-[#8a8f98]">${formatMoney(service.price, 'RUB')}</span>
         </label>
       `).join('');
     }
@@ -373,7 +377,7 @@
     function updateCurrencyButtons() {
       document.querySelectorAll('.currency-button').forEach((button) => {
         const isActive = button.dataset.currency === state.currency;
-        button.className = `currency-button h-9 rounded text-sm font-medium ${isActive ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'}`;
+        button.className = `currency-button h-9 rounded text-sm font-medium ${isActive ? 'bg-[#23252a] text-[#e5e5e6]' : 'text-[#8a8f98] hover:text-[#e5e5e6]'}`;
         button.setAttribute('aria-pressed', String(isActive));
       });
     }
@@ -384,11 +388,11 @@
       summaryLines.innerHTML = calculation.lines.length
         ? calculation.lines.map((line) => `
             <div class="flex items-start justify-between gap-3 py-3 text-sm">
-              <span class="min-w-0 text-zinc-600">${line.name}</span>
+              <span class="min-w-0 text-[#8a8f98]">${line.name}</span>
               <span class="shrink-0 font-medium">${formatMoney(line.price)}</span>
             </div>
           `).join('')
-        : '<p class="py-6 text-center text-sm text-zinc-500">Позиции не выбраны</p>';
+        : '<p class="py-6 text-center text-sm text-[#8a8f98]">Позиции не выбраны</p>';
 
       document.getElementById('selected-count').textContent = `${calculation.lines.length} поз.`;
       document.getElementById('subtotal-value').textContent = formatMoney(calculation.subtotal);
@@ -427,7 +431,7 @@
       document.getElementById('result-lines').innerHTML = latestCalculation.lines.map((line) => `
         <tr>
           <td class="px-5 py-4 font-medium">${line.name}</td>
-          <td class="px-5 py-4 text-zinc-500">${line.type}</td>
+          <td class="px-5 py-4 text-[#8a8f98]">${line.type}</td>
           <td class="px-5 py-4 text-right font-medium">${formatMoney(line.price)}</td>
         </tr>
       `).join('');
