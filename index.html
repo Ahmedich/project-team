@@ -6,126 +6,140 @@
   <title>Смета — расчёт коммерческого предложения</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen overflow-x-hidden bg-stone-100 font-['Trebuchet_MS'] text-stone-900 antialiased">
-  <div class="min-h-screen bg-[linear-gradient(to_right,rgba(28,25,23,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(28,25,23,0.035)_1px,transparent_1px)] bg-[size:32px_32px]">
-    <header class="border-b border-stone-300 bg-[#f7f4ec]/95">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-        <div class="flex items-center gap-3">
-          <div class="grid h-10 w-10 place-items-center rounded-xl bg-emerald-900 text-lg font-bold text-emerald-50">С</div>
-          <div>
-            <p class="font-['Georgia'] text-xl font-bold tracking-tight">Смета</p>
-            <p class="text-xs uppercase tracking-[0.18em] text-stone-500">Коммерческое предложение</p>
-          </div>
-        </div>
-        <div class="hidden items-center gap-2 rounded-full border border-stone-300 bg-white px-3 py-1.5 text-xs text-stone-600 sm:flex">
-          <span class="h-2 w-2 rounded-full bg-emerald-600"></span>
-          <span id="saveStatus">Черновик готов</span>
-        </div>
+<body class="min-h-screen overflow-x-hidden bg-[#f7f5f3] font-['Georgia'] font-normal text-[#0d0d0d] antialiased">
+  <header class="mx-auto max-w-[1280px] px-4 pt-4 sm:px-6 sm:pt-6">
+    <nav class="flex items-center justify-between rounded-full border border-[#0d0d0d]/10 bg-white px-4 py-3 sm:px-6" aria-label="Основная навигация">
+      <a href="#top" class="flex items-center gap-3" aria-label="Смета — наверх">
+        <span class="grid grid-cols-3 gap-[2px]" aria-hidden="true">
+          <span class="h-[4px] w-[4px] rounded-full bg-[#0d0d0d]"></span>
+          <span class="h-[4px] w-[4px] rounded-full bg-[#0d0d0d]"></span>
+          <span class="h-[4px] w-[4px] rounded-full bg-[#0d0d0d]"></span>
+          <span class="h-[4px] w-[4px] rounded-full bg-[#0d0d0d]"></span>
+          <span></span>
+          <span class="h-[4px] w-[4px] rounded-full bg-[#0d0d0d]"></span>
+          <span class="h-[4px] w-[4px] rounded-full bg-[#0d0d0d]"></span>
+          <span class="h-[4px] w-[4px] rounded-full bg-[#0d0d0d]"></span>
+          <span class="h-[4px] w-[4px] rounded-full bg-[#0d0d0d]"></span>
+        </span>
+        <span class="text-[18px] font-medium tracking-[-0.011em]">Смета</span>
+      </a>
+      <div class="hidden items-center gap-8 text-[14px] text-[#6e6a69] md:flex">
+        <a href="#path" class="transition hover:text-[#0d0d0d]">Путь расчёта</a>
+        <a href="#calculator" class="transition hover:text-[#0d0d0d]">Новый документ</a>
       </div>
-    </header>
+      <div class="flex items-center gap-2 text-[14px] text-[#6e6a69]">
+        <span class="h-2 w-2 rounded-full bg-[#0d0d0d]"></span>
+        <span id="saveStatus" class="hidden sm:inline">Черновик готов</span>
+        <span class="sm:hidden">Готов</span>
+      </div>
+    </nav>
+  </header>
 
-    <main class="mx-auto grid max-w-7xl gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:py-12">
-      <aside class="lg:sticky lg:top-8 lg:self-start">
-        <p class="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-emerald-800">Путь расчёта</p>
-        <h1 class="font-['Georgia'] text-3xl font-bold leading-tight sm:text-4xl">Один документ вместо долгого сбора данных</h1>
-        <p class="mt-4 text-sm leading-6 text-stone-600">Заполните параметры проекта и получите сокращённый Excel-документ без лишней информации.</p>
+  <main id="top">
+    <section class="mx-auto flex max-w-[1040px] flex-col items-center px-5 pb-16 pt-20 text-center sm:pb-20 sm:pt-28">
+      <p class="text-[15px] font-medium uppercase">Коммерческое предложение</p>
+      <h1 class="mt-7 max-w-4xl text-[48px] font-normal leading-[0.94] tracking-[-0.05em] sm:text-[66px] lg:text-[74px]">
+        Точный расчёт.<br>Только нужное.
+      </h1>
+      <p class="mt-8 max-w-xl text-[17px] leading-7 tracking-[-0.011em] text-[#6e6a69]">
+        Соберите параметры проекта в одном пространстве и получите сокращённый Excel-документ без лишней информации.
+      </p>
+      <div class="mt-9 flex w-full max-w-md flex-col gap-3 sm:flex-row">
+        <a href="#calculator" class="flex-1 rounded-2xl bg-[#0d0d0d] px-6 py-4 text-[16px] font-medium text-white transition hover:bg-[#2a2929]">Начать расчёт</a>
+        <a href="#path" class="flex-1 rounded-2xl border border-[#0d0d0d]/15 bg-white px-6 py-4 text-[16px] font-medium transition hover:border-[#0d0d0d]/40">Посмотреть путь</a>
+      </div>
+    </section>
 
-        <ol class="mt-8 grid grid-cols-2 gap-3 text-sm lg:grid-cols-1">
-          <li class="flex items-center gap-3 rounded-xl border border-emerald-800 bg-emerald-900 px-3 py-3 text-white">
-            <span class="font-['Georgia'] text-lg">01</span><span>Клиент</span>
-          </li>
-          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
-            <span class="font-['Georgia'] text-lg text-stone-400">02</span><span>Скидка</span>
-          </li>
-          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
-            <span class="font-['Georgia'] text-lg text-stone-400">03</span><span>Налог</span>
-          </li>
-          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
-            <span class="font-['Georgia'] text-lg text-stone-400">04</span><span>Услуги</span>
-          </li>
-          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
-            <span class="font-['Georgia'] text-lg text-stone-400">05</span><span>Валюта</span>
-          </li>
-          <li class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white/70 px-3 py-3">
-            <span class="font-['Georgia'] text-lg text-stone-400">06</span><span>Документ</span>
-          </li>
+    <section id="calculator" class="mx-auto grid max-w-[1280px] gap-6 px-4 pb-20 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12 lg:pb-28">
+      <div id="path" class="scroll-mt-24 rounded-2xl border border-[#0d0d0d]/10 bg-[#f7f5f3] p-4 sm:p-6 lg:self-start">
+        <p class="text-[14px] font-medium uppercase">Один сценарий</p>
+        <h2 class="mt-4 text-[38px] font-normal leading-[1.08] tracking-[-0.04em]">От исходного Excel к чистому результату</h2>
+        <p class="mt-5 text-[16px] leading-6 tracking-[-0.011em] text-[#6e6a69]">Шесть решений, собранных в спокойный последовательный путь.</p>
+
+        <ol class="mt-10 border-t border-[#0d0d0d]/10">
+          <li class="grid grid-cols-[36px_1fr] gap-3 border-b border-[#0d0d0d]/10 py-4 text-[16px]"><span class="text-[#9a9796]">01</span><span>Выберите клиента</span></li>
+          <li class="grid grid-cols-[36px_1fr] gap-3 border-b border-[#0d0d0d]/10 py-4 text-[16px]"><span class="text-[#9a9796]">02</span><span>Укажите скидку</span></li>
+          <li class="grid grid-cols-[36px_1fr] gap-3 border-b border-[#0d0d0d]/10 py-4 text-[16px]"><span class="text-[#9a9796]">03</span><span>Выберите тип налога</span></li>
+          <li class="grid grid-cols-[36px_1fr] gap-3 border-b border-[#0d0d0d]/10 py-4 text-[16px]"><span class="text-[#9a9796]">04</span><span>Добавьте услуги</span></li>
+          <li class="grid grid-cols-[36px_1fr] gap-3 border-b border-[#0d0d0d]/10 py-4 text-[16px]"><span class="text-[#9a9796]">05</span><span>Укажите валюту</span></li>
+          <li class="grid grid-cols-[36px_1fr] gap-3 py-4 text-[16px]"><span class="text-[#9a9796]">06</span><span>Получите документ</span></li>
         </ol>
-      </aside>
+      </div>
 
-      <section class="min-w-0 max-w-full overflow-hidden rounded-3xl border border-stone-300 bg-[#fffdf8] shadow-[0_24px_70px_rgba(41,37,36,0.12)]">
-        <div class="flex flex-col gap-4 border-b border-stone-200 px-6 py-6 sm:flex-row sm:items-end sm:justify-between sm:px-9">
-          <div>
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">Новый расчёт</p>
-            <h2 class="mt-2 font-['Georgia'] text-2xl font-bold sm:text-3xl">Параметры проекта</h2>
+      <section class="min-w-0 overflow-hidden rounded-2xl border border-[#0d0d0d]/10 bg-white">
+        <div class="border-b border-[#0d0d0d]/10 px-5 py-7 sm:px-8 sm:py-9">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p class="text-[14px] font-medium uppercase text-[#6e6a69]">Новый документ</p>
+              <h2 class="mt-3 text-[33px] font-normal leading-[1.1] tracking-[-0.04em] sm:text-[38px]">Параметры проекта</h2>
+            </div>
+            <p class="text-[14px] text-[#9a9796]">* обязательные поля</p>
           </div>
-          <p class="text-sm text-stone-500"><span class="text-amber-700">*</span> обязательные поля</p>
         </div>
 
-        <form id="proposalForm" class="space-y-8 px-6 py-8 sm:px-9">
+        <form id="proposalForm" class="space-y-8 px-5 py-8 sm:px-8 sm:py-10">
           <div class="grid gap-6 md:grid-cols-2">
             <label class="block md:col-span-2">
-              <span class="mb-2 block text-sm font-bold">Клиент <span class="text-amber-700">*</span></span>
-              <input id="client" name="client" type="text" required autocomplete="organization" placeholder="Введите название клиента" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+              <span class="mb-2 block text-[15px] font-medium">Клиент *</span>
+              <input id="client" name="client" type="text" required autocomplete="organization" placeholder="Введите название клиента" class="w-full rounded-2xl border border-[#0d0d0d]/15 bg-[#f7f5f3] px-4 py-4 text-[16px] outline-none transition placeholder:text-[#9a9796] focus:border-[#0d0d0d] focus:bg-white">
             </label>
 
             <label class="block">
-              <span class="mb-2 block text-sm font-bold">Скидка, %</span>
-              <input id="discount" name="discount" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="Если есть" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
-              <span class="mt-2 block text-xs text-stone-500">Поле можно оставить пустым.</span>
+              <span class="mb-2 block text-[15px] font-medium">Скидка, %</span>
+              <input id="discount" name="discount" type="number" min="0" max="100" step="0.01" inputmode="decimal" placeholder="Если есть" class="w-full rounded-2xl border border-[#0d0d0d]/15 bg-[#f7f5f3] px-4 py-4 text-[16px] outline-none transition placeholder:text-[#9a9796] focus:border-[#0d0d0d] focus:bg-white">
+              <span class="mt-2 block text-[14px] text-[#9a9796]">Можно оставить пустым.</span>
             </label>
 
             <label class="block">
-              <span class="mb-2 block text-sm font-bold">Тип налога <span class="text-amber-700">*</span></span>
-              <input id="tax" name="tax" type="text" required placeholder="Укажите тип налога" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+              <span class="mb-2 block text-[15px] font-medium">Тип налога *</span>
+              <input id="tax" name="tax" type="text" required placeholder="Укажите тип налога" class="w-full rounded-2xl border border-[#0d0d0d]/15 bg-[#f7f5f3] px-4 py-4 text-[16px] outline-none transition placeholder:text-[#9a9796] focus:border-[#0d0d0d] focus:bg-white">
             </label>
 
             <label class="block md:col-span-2">
-              <span class="mb-2 block text-sm font-bold">Дополнительные услуги или тип поддержки</span>
-              <input id="services" name="services" type="text" placeholder="Укажите выбранные позиции" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+              <span class="mb-2 block text-[15px] font-medium">Дополнительные услуги или тип поддержки</span>
+              <input id="services" name="services" type="text" placeholder="Укажите выбранные позиции" class="w-full rounded-2xl border border-[#0d0d0d]/15 bg-[#f7f5f3] px-4 py-4 text-[16px] outline-none transition placeholder:text-[#9a9796] focus:border-[#0d0d0d] focus:bg-white">
             </label>
 
             <label class="block md:col-span-2">
-              <span class="mb-2 block text-sm font-bold">Валюта <span class="text-amber-700">*</span></span>
-              <input id="currency" name="currency" type="text" required placeholder="Укажите валюту расчёта" class="w-full rounded-xl border border-stone-300 bg-white px-4 py-3.5 text-base outline-none transition focus:border-emerald-800 focus:ring-4 focus:ring-emerald-100">
+              <span class="mb-2 block text-[15px] font-medium">Валюта *</span>
+              <input id="currency" name="currency" type="text" required placeholder="Укажите валюту расчёта" class="w-full rounded-2xl border border-[#0d0d0d]/15 bg-[#f7f5f3] px-4 py-4 text-[16px] outline-none transition placeholder:text-[#9a9796] focus:border-[#0d0d0d] focus:bg-white">
             </label>
           </div>
 
-          <div class="flex flex-col gap-3 border-t border-stone-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <button type="button" id="clearDraft" class="order-2 rounded-xl px-4 py-3 text-sm font-bold text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 sm:order-1">Очистить черновик</button>
-            <button type="submit" class="order-1 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-900 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-200 sm:order-2">
-              Сформировать документ
-              <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
-            </button>
+          <div class="flex flex-col gap-3 border-t border-[#0d0d0d]/10 pt-6 sm:flex-row">
+            <button type="submit" class="order-1 flex-1 rounded-2xl bg-[#0d0d0d] px-6 py-4 text-[16px] font-medium text-white transition hover:bg-[#2a2929]">Сформировать документ</button>
+            <button type="button" id="clearDraft" class="order-2 flex-1 rounded-2xl border border-[#0d0d0d]/15 bg-white px-6 py-4 text-[16px] font-medium transition hover:border-[#0d0d0d]/40">Очистить черновик</button>
           </div>
         </form>
 
-        <div id="resultPanel" class="hidden border-t border-emerald-200 bg-emerald-50/80 px-6 py-8 sm:px-9" aria-live="polite">
-          <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-            <div class="flex gap-4">
-              <div class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-emerald-800 text-white">
-                <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 10 4 4 8-9"/></svg>
+        <div id="resultPanel" class="hidden border-t border-[#0d0d0d]/10 bg-[#f7f5f3] px-5 py-8 sm:px-8 sm:py-10" aria-live="polite">
+          <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+            <div class="max-w-xl">
+              <div class="mb-5 grid w-fit grid-cols-3 gap-[3px]" aria-hidden="true">
+                <span class="h-[5px] w-[5px] rounded-full bg-[#0d0d0d]"></span><span class="h-[5px] w-[5px] rounded-full bg-[#0d0d0d]"></span><span class="h-[5px] w-[5px] rounded-full bg-[#0d0d0d]"></span>
+                <span class="h-[5px] w-[5px] rounded-full bg-[#0d0d0d]"></span><span></span><span class="h-[5px] w-[5px] rounded-full bg-[#0d0d0d]"></span>
+                <span class="h-[5px] w-[5px] rounded-full bg-[#0d0d0d]"></span><span class="h-[5px] w-[5px] rounded-full bg-[#0d0d0d]"></span><span class="h-[5px] w-[5px] rounded-full bg-[#0d0d0d]"></span>
               </div>
-              <div>
-                <p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-800">Документ готов</p>
-                <h3 class="mt-1 font-['Georgia'] text-2xl font-bold">Сокращённый расчёт</h3>
-                <p class="mt-2 max-w-xl text-sm leading-6 text-stone-600">В документ включены только данные текущего расчёта.</p>
-              </div>
+              <p class="text-[14px] font-medium uppercase text-[#6e6a69]">Документ готов</p>
+              <h3 class="mt-3 text-[33px] font-normal leading-[1.1] tracking-[-0.04em]">Сокращённый расчёт</h3>
+              <p class="mt-4 text-[16px] leading-6 text-[#6e6a69]">В документ включены только данные текущего расчёта.</p>
             </div>
-            <button id="downloadResult" type="button" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-emerald-800 bg-white px-5 py-3 text-sm font-bold text-emerald-900 transition hover:bg-emerald-900 hover:text-white">
-              Скачать Excel
-              <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3v10m0 0 4-4m-4 4L6 9M4 16h12"/></svg>
-            </button>
+            <button id="downloadResult" type="button" class="shrink-0 rounded-2xl bg-[#0d0d0d] px-6 py-4 text-[16px] font-medium text-white transition hover:bg-[#2a2929]">Скачать Excel</button>
           </div>
 
-          <div class="mt-6 overflow-hidden rounded-2xl border border-emerald-200 bg-white">
-            <table class="w-full text-left text-sm">
-              <tbody id="resultTable" class="divide-y divide-stone-200"></tbody>
+          <div class="mt-8 overflow-hidden rounded-2xl border border-[#0d0d0d]/10 bg-white">
+            <table class="w-full text-left text-[15px]">
+              <tbody id="resultTable" class="divide-y divide-[#0d0d0d]/10"></tbody>
             </table>
           </div>
         </div>
       </section>
-    </main>
-  </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-[#0d0d0d]/10 px-5 py-8 text-center text-[14px] text-[#9a9796]">
+    Прототип расчёта коммерческого предложения
+  </footer>
 
   <script>
     const form = document.getElementById('proposalForm');
@@ -165,8 +179,8 @@
         const row = document.createElement('tr');
         const labelCell = document.createElement('th');
         const valueCell = document.createElement('td');
-        labelCell.className = 'w-2/5 bg-stone-50 px-4 py-3 font-bold text-stone-600 sm:px-5';
-        valueCell.className = 'px-4 py-3 font-bold text-stone-900 sm:px-5';
+        labelCell.className = 'w-2/5 bg-[#f7f5f3] px-4 py-4 font-medium text-[#6e6a69] sm:px-5';
+        valueCell.className = 'px-4 py-4 font-medium text-[#0d0d0d] sm:px-5';
         labelCell.textContent = label;
         valueCell.textContent = value;
         row.append(labelCell, valueCell);
