@@ -6,7 +6,7 @@
 
 | GitHub-ник | Роль |
 | --- | --- |
-| [@kittyne86-cloud](https://github.com/kittyne86-cloud) | менеджер |
+| [@katesable](https://github.com/katesable) | менеджер |
 | [@koaladenchik-hue](https://github.com/koaladenchik-hue) | автор процесса |
 | [@Ahmedich](https://github.com/Ahmedich) | интегратор |
 
